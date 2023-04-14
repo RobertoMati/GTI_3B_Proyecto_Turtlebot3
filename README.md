@@ -20,6 +20,14 @@ turtlebot3_ws
 ```
 
 ## Pasos para montar el proyecto correctamente
+
+Antes de realizar el montaje del proyecto, se deben cambiar y/o añadir, comentando las existentes, dos líneas existentes en el fichero CMakeLists.txt de **proy_techcommit_mundo**, cambiando la ruta por la propia del usuario.
+
+```
+#set(CMAKE_PREFIX_PATH "ruta del usuario a turtlebot3_ws/install/turtlebot3_gazebo" ${CMAKE_PREFIX_PATH}) 
+ list(APPEND CMAKE_PREFIX_PATH "ruta del usuario a turtlebot3_ws/install/turtlebot3_gazebo")
+```
+
 Para el correcto funcionamiento del proyecto, se deben seguir los siguientes pasos a la hora de hacer un **colcon build**:
 - 0: Abrir una **Terminal**
 - 1: Situarse en turtlebot3_ws con: **cd turtlebot3_ws/**
