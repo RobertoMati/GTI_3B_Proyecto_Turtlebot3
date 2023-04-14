@@ -13,6 +13,9 @@ turtlebot3_ws
     |__ turtlebot3_gazebo
     |__ turtlebot3_fake_node
     |__ proy_techcommit
+        |__ proy_techcommit
+        |__ proy_techcommit_mundo
+        |__ *Más paquetes*
     |__ *Más paquetes que puedan haber*
 ```
 
