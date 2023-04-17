@@ -27,8 +27,10 @@ find_package(nav_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
-#set(CMAKE_PREFIX_PATH "/home/robertomati/turtlebot3_ws/install/turtlebot3_gazebo" ${CMAKE_PREFIX_PATH})
-list(APPEND CMAKE_PREFIX_PATH "/home/robertomati/turtlebot3_ws/install/turtlebot3_gazebo")
+# /home/alumno/turtlebot3_ws/install/turtlebot3_gazebo
+#set(CMAKE_PREFIX_PATH "/home/alumno/turtlebot3_ws/install/turtlebot3_gazebo" ${CMAKE_PREFIX_PATH})
+# directorio quique: /home/alumno/turtlebot3_ws/install/turtlebot3_gazebo
+list(APPEND CMAKE_PREFIX_PATH "/home/alumno/turtlebot3_ws/install/turtlebot3_gazebo")
 find_package(turtlebot3_gazebo REQUIRED)
 
 ################################################################################

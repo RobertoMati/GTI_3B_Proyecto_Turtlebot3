@@ -1,0 +1,39 @@
+[1.084s] Invoking command in '/home/alumno/turtlebot3_ws/src/proy_techcommit/proy_techcommit_my_slam': PYTHONPATH=/home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/prefix_override:/home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/proy_techcommit_my_slam build --build-base /home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/build install --record /home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/install.log --single-version-externally-managed
+[1.447s] running egg_info
+[1.448s] creating ../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info
+[1.448s] writing ../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info/PKG-INFO
+[1.449s] writing dependency_links to ../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info/dependency_links.txt
+[1.449s] writing entry points to ../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info/entry_points.txt
+[1.449s] writing requirements to ../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info/requires.txt
+[1.449s] writing top-level names to ../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info/top_level.txt
+[1.454s] writing manifest file '../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info/SOURCES.txt'
+[1.510s] reading manifest file '../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info/SOURCES.txt'
+[1.512s] writing manifest file '../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info/SOURCES.txt'
+[1.512s] running build
+[1.512s] running build_py
+[1.512s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/build
+[1.512s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/build/lib
+[1.512s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/build/lib/proy_techcommit_my_slam
+[1.513s] copying proy_techcommit_my_slam/__init__.py -> /home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/build/lib/proy_techcommit_my_slam
+[1.513s] running install
+[1.517s] running install_lib
+[1.517s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/lib/python3.8/site-packages/proy_techcommit_my_slam
+[1.517s] copying /home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/build/lib/proy_techcommit_my_slam/__init__.py -> /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/lib/python3.8/site-packages/proy_techcommit_my_slam
+[1.517s] byte-compiling /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/lib/python3.8/site-packages/proy_techcommit_my_slam/__init__.py to __init__.cpython-38.pyc
+[1.519s] running install_data
+[1.521s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/ament_index
+[1.521s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/ament_index/resource_index
+[1.522s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/ament_index/resource_index/packages
+[1.522s] copying resource/proy_techcommit_my_slam -> /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/ament_index/resource_index/packages
+[1.522s] copying package.xml -> /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/proy_techcommit_my_slam
+[1.522s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/proy_techcommit_my_slam/map
+[1.523s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/proy_techcommit_my_slam/rviz
+[1.523s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/proy_techcommit_my_slam/launch
+[1.523s] copying launch/my_slam.launch.py -> /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/proy_techcommit_my_slam/launch
+[1.523s] creating /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/proy_techcommit_my_slam/config
+[1.524s] copying config/my_slam.lua -> /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/share/proy_techcommit_my_slam/config
+[1.524s] running install_egg_info
+[1.529s] Copying ../build/proy_techcommit_my_slam/proy_techcommit_my_slam.egg-info to /home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/lib/python3.8/site-packages/proy_techcommit_my_slam-0.0.0-py3.8.egg-info
+[1.530s] running install_scripts
+[1.560s] writing list of installed files to '/home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/install.log'
+[1.589s] Invoked command in '/home/alumno/turtlebot3_ws/src/proy_techcommit/proy_techcommit_my_slam' returned '0': PYTHONPATH=/home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/prefix_override:/home/alumno/turtlebot3_ws/src/proy_techcommit/install/proy_techcommit_my_slam/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/proy_techcommit_my_slam build --build-base /home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/build install --record /home/alumno/turtlebot3_ws/src/proy_techcommit/build/proy_techcommit_my_slam/install.log --single-version-externally-managed
