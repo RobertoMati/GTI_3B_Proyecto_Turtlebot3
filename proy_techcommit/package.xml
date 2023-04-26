@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>proy_techcommit</name>
+  <version>0.0.1</version>
+  <description>Metapackage para el Proyecto de Turtlebot3 de Techcommit. Servicio de ayuda a ancianos.</description>
+  <maintainer email="techcommit00@gmail.com">techcommit</maintainer>
+  <license>Licencia TechCommit</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>proy_techcommit_mundo</exec_depend>
+  <exec_depend>proy_techcommit_my_slam</exec_depend>
+  <!-- Añadir más según vayamos haciendo -->
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

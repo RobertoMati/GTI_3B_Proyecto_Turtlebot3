@@ -1,0 +1,31 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/alumno/turtlebot3_ws/install/unity_robotics_demo_msgs/include/**",
+        "/home/alumno/turtlebot3_ws/install/turtlebot3_gazebo/include/**",
+        "/home/alumno/turtlebot3_ws/install/turtlebot3_fake_node/include/**",
+        "/home/alumno/turtlebot3_ws/install/proy_techcommit_mundo/include/**",
+        "/home/alumno/turtlebot3_ws/install/my_world/include/**",
+        "/home/alumno/turtlebot3_ws/install/custom_interface/include/**",
+        "/opt/ros/galactic/include/**",
+        "/home/alumno/turtlebot3_ws/src/custom_interface/include/**",
+        "/home/alumno/turtlebot3_ws/src/my_world/include/**",
+        "/home/alumno/turtlebot3_ws/src/proy_techcommit/proy_techcommit_mundo/include/**",
+        "/home/alumno/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_fake_node/include/**",
+        "/home/alumno/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

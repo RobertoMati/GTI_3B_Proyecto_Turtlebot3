@@ -1,0 +1,42 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/alumno/turtlebot3_ws/install/unity_robotics_demo_msgs/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/unity_robotics_demo/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/show_msg/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/ros_tcp_endpoint/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/proy_techcommit_provide_map/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/proy_techcommit_my_slam/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/proy_techcommit_my_nav2_system/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/provide_map/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/poseWithCovarianceStamped/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_slam/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_nav2_system/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_subscriber/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_service/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_publisher/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_node/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_action/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/custom_interface/lib/python3.8/site-packages",
+        "/opt/ros/galactic/lib/python3.8/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/alumno/turtlebot3_ws/install/unity_robotics_demo_msgs/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/unity_robotics_demo/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/show_msg/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/ros_tcp_endpoint/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/proy_techcommit_provide_map/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/proy_techcommit_my_slam/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/proy_techcommit_my_nav2_system/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/provide_map/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/poseWithCovarianceStamped/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_slam/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_nav2_system/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_subscriber/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_service/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_publisher/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_node/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/my_first_action/lib/python3.8/site-packages",
+        "/home/alumno/turtlebot3_ws/install/custom_interface/lib/python3.8/site-packages",
+        "/opt/ros/galactic/lib/python3.8/site-packages"
+    ]
+}
