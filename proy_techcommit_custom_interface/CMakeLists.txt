@@ -40,6 +40,6 @@ endif()
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Distvel.msg"
   "srv/MyMovimientoRobot.srv"
-
+  "action/Move.action"
 )
 ament_package()
