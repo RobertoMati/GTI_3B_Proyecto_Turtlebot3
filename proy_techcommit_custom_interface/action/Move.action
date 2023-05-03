@@ -1,0 +1,8 @@
+#goal
+int32 secs #Segundos que el robot permanece moviendose
+---
+#result
+string status #Estado final de la acción
+---
+#feedback
+string feedback #Estado actual del robot
