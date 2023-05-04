@@ -1,13 +1,21 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
-from nav2_msgs.action import NavigateToPose
+
+#from nav2_msgs.action import NavigateToPose
+
+# El tipo de mensaje es FollowWaypoints
+
+from nav2_msgs.action import FollowWaypoints
 from geometry_msgs.msg import PoseStamped
 
 class WaypointFollower(Node):
     def __init__(self):
         super().__init__('waypoint_follower')
-        self.client = ActionClient(self, NavigateToPose, 'NavigateToPose')
+        
+        #self.client = ActionClient(self, NavigateToPose, 'NavigateToPose')
+        self._action_client = ActionClient(self, FollowWaypoints, 'follow_waypoints')
+        
         self.waypoints = self.define_waypoints()
 
     def define_waypoints(self):
@@ -64,11 +72,48 @@ class WaypointFollower(Node):
 
     def send_waypoints(self):
     # Enviar la lista de waypoints al servidor de la acción
-        for waypoint in self.waypoints:
-            goal = NavigateToPose.Goal()
-            goal.pose = waypoint
-            self.client.wait_for_server()
-            future = self.client.send_goal_async(goal)
+        #for waypoint in self.waypoints:
+        #    goal = NavigateToPose.Goal()
+        #    goal.pose = waypoint
+        #    self.client.wait_for_server()
+        #    future = self.client.send_goal_async(goal)
+    # Enviar todos los waypoints a la vez
+        self._action_client.wait_for_server()
+
+        self.get_logger().info('Acción activa :)')
+
+        goal_pose = FollowWaypoints.Goal()
+
+        goal_pose.poses = self.waypoints
+        self._action_client.wait_for_server()
+        self.get_logger().info('Acción activa :)')
+        self._send_goal_future = self._action_client.send_goal_async(
+            goal_pose,
+            feedback_callback=self.feedback_callback)
+
+        self._send_goal_future.add_done_callback(self.goal_response_callback)
+        self.get_logger().info('Goal lanzado :)')
+
+    def feedback_callback(self, feedback_msg):
+        feedback = feedback_msg.feedback
+        #self.get_logger().info('Received feedback: {0}'.format(feedback.feedback))
+
+    def goal_response_callback(self, future):
+        goal_handle = future.result()
+        if not goal_handle.accepted:
+            self.get_logger().info('Goal rejected :(')
+            return
+
+        self.get_logger().info('Goal accepted :)')
+
+        self._get_result_future = goal_handle.get_result_async()
+        self._get_result_future.add_done_callback(self.get_result_callback)
+
+    #definimos la funcion de respuesta al resultado
+    def get_result_callback(self, future):
+        result = future.result().result
+        self.get_logger().info('Result: {0}'.format(result.status))
+        rclpy.shutdown()
 
 def main(args=None):
     rclpy.init(args=args)
