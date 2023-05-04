@@ -88,3 +88,18 @@ Todo debe verse de color verde, el mapa cargado, el robot cargado y las TF y Las
 ### Probar el funcionamiento
 1. Añadir una goal pose para que el robot se mueva hacia su destino.
 
+### Uso de archivo de navegación por puntos my_waypoint_follower
+Necesitaremos 3 terminales:
+1. En el terminal 1 lanzaremos nuestro mundo: 
+ros2 launch proy_techcommit_mundo turtlebot3_proy_techcommit.launch.py
+2. En el terminal 2 lanzaremos el launch de my_waypoints que nos abrirá el RVIZ:
+ros2 launch proy_techcommit_my_nav2_system my_nav2_waypoints_follower.launch.py
+3. En el tercer terminal primero cargaremos el mapa:
+ros2 service call map_server/load_map nav2_msgs/srv/LoadMap "{map_url: X/turtlebot3_ws/src/proy_techcommit/proy_techcommit_my_nav2_system/config/my_map.yaml}"
+*Sustituir X en map_url: X/turtlebot3_ws por la ruta en la que tengas tu proyecto*
+Seguidamente le cargamos la posicion inicial: ros2 run proy_techcommit_my_nav2_system initial_pose_pub
+Y para terminar introducimos el siguiente comando en la terminal: ros2 run proy_techcommit_my_nav2_system my_waypoint_follower
+
+
+
+
