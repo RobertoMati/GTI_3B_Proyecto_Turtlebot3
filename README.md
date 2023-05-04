@@ -59,3 +59,32 @@ Para el correcto funcionamiento del proyecto, se deben seguir los siguientes pas
 - 3: Realizar un **colcon build** global.
 - 4: No siempre es necesario, pero por si acaso escribir un **source install/setup.bash** en la terminal.
 - 5: Lanzar el fichero de lanzamiento. Para el caso del fichero del mundo, se haría: **ros2 launch proy_techcommit_mundo turtlebot3_proy_techcommit.launch.py**
+
+### Navegación del robot real
+Para que funcione correctamente se deben seguir los siguientes pasos:
+
+#Terminal 1 (Conexión con Turtlebot3)
+ssh ubuntu@192.168.0.63
+password: turtlebot
+ros2 launch turtlebot3_bringup robot.launch.py
+
+#Terminal 2
+ros2 launch proy_techcommit_my_nav2_system_real my_tb3_sim_nav2_real.launch.py use_sim_time:=False
+
+#Antes de continuar con las terminales, en RViz se deben cambiar los siguientes aspectos:
+1. Cambiar el topic general a /map.
+2. Eliminar el componente Map y volver a añadirlo.
+3. En Map, se debe cambiar un parámetro a Best Effort.
+4. Cargar el modelo del robot de su ubicación correspondiente.
+
+#Terminal 3
+ros2 service call /map_server/load_map nav2_msgs/srv/LoadMap "{map_url: $HOME/turtlebot3_ws/src/proy_techcommit/proy_techcommit_provide_map_real/map/src.yaml}"
+
+### En RViz
+1. Añadir la pose inicial del robot con 2D estimate pose.
+
+Todo debe verse de color verde, el mapa cargado, el robot cargado y las TF y LaserScan enviando información.
+
+### Probar el funcionamiento
+1. Añadir una goal pose para que el robot se mueva hacia su destino.
+
