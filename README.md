@@ -100,13 +100,14 @@ ros2 service call map_server/load_map nav2_msgs/srv/LoadMap "{map_url: X/turtleb
 Seguidamente le cargamos la posicion inicial: ros2 run proy_techcommit_my_nav2_system initial_pose_pub
 Y para terminar introducimos el siguiente comando en la terminal: ros2 run proy_techcommit_my_nav2_system my_waypoint_follower
 
-### Cámara del robot real en web
+### Cámara del robot real en web y movimiento
 #Terminal 1 (Conexión con Turtlebot3)
 ssh ubuntu@192.168.0.63
 password: turtlebot
 ros2 launch turtlebot3_bringup robot.launch.py
 
 #Terminal 2 (Encender cámara)
+ssh ubuntu@192.168.0.63
 ros2 run image_tools cam2image --ros-args -p burger_mode:=false -p frequency:=10.0
 
 #Terminal 3 (Ver cámara por terminal) OPCIONAL
@@ -120,6 +121,9 @@ python3 -m http.server 8000
 
 #Terminal 6 (Video Web Server)
 ros2 run web_video_server web_video_server
+
+#Terminal 7 (Servicio para mover el robot)
+ros2 launch proy_techcommit_service_move movement_server_launch.launch.py 
 
 
 
