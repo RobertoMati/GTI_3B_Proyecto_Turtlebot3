@@ -60,94 +60,156 @@ Para el correcto funcionamiento del proyecto, se deben seguir los siguientes pas
 - 4: No siempre es necesario, pero por si acaso escribir un **source install/setup.bash** en la terminal.
 - 5: Lanzar el fichero de lanzamiento. Para el caso del fichero del mundo, se haría: **ros2 launch proy_techcommit_mundo turtlebot3_proy_techcommit.launch.py**
 
-### Navegación del robot real
+## Navegación del robot real
 Para que funcione correctamente se deben seguir los siguientes pasos:
 
-#Terminal 1 (Conexión con Turtlebot3)
+#### Terminal 1 (Conexión con Turtlebot3)
+```
 ssh ubuntu@192.168.0.63
-password: turtlebot
+```
+##### Terminal 1 - password: 
+```
+turtlebot
+```
+```
 ros2 launch turtlebot3_bringup robot.launch.py
+```
 
-#Terminal 2
+#### Terminal 2
+```
 ros2 launch proy_techcommit_my_nav2_system_real my_tb3_sim_nav2_real.launch.py use_sim_time:=False
+```
 
-#Antes de continuar con las terminales, en RViz se deben cambiar los siguientes aspectos:
+##### Antes de continuar con las terminales, en RViz se deben cambiar los siguientes aspectos:
 1. Cambiar el topic general a /map.
 2. Eliminar el componente Map y volver a añadirlo.
 3. En Map, se debe cambiar un parámetro a Best Effort.
 4. Cargar el modelo del robot de su ubicación correspondiente.
 
-#Terminal 3
+#### Terminal 3
+```
 ros2 service call /map_server/load_map nav2_msgs/srv/LoadMap "{map_url: $HOME/turtlebot3_ws/src/proy_techcommit/proy_techcommit_provide_map_real/map/src.yaml}"
+```
 
-### En RViz
+#### En RViz
 1. Añadir la pose inicial del robot con 2D estimate pose.
+2. Todo debe verse de color verde, el mapa cargado, el robot cargado y las TF y LaserScan enviando información.
 
-Todo debe verse de color verde, el mapa cargado, el robot cargado y las TF y LaserScan enviando información.
-
-### Probar el funcionamiento
+#### Probar el funcionamiento
 1. Añadir una goal pose para que el robot se mueva hacia su destino.
 
-### Uso de archivo de navegación por puntos my_waypoint_follower
-Necesitaremos 3 terminales:
-1. En el terminal 1 lanzaremos nuestro mundo: 
-ros2 launch proy_techcommit_mundo turtlebot3_proy_techcommit.launch.py
-2. En el terminal 2 lanzaremos el launch de my_waypoints que nos abrirá el RVIZ:
-ros2 launch proy_techcommit_my_nav2_system my_nav2_waypoints_follower.launch.py
-3. En el tercer terminal primero cargaremos el mapa:
-ros2 service call map_server/load_map nav2_msgs/srv/LoadMap "{map_url: X/turtlebot3_ws/src/proy_techcommit/proy_techcommit_my_nav2_system/config/my_map.yaml}"
-*Sustituir X en map_url: X/turtlebot3_ws por la ruta en la que tengas tu proyecto*
-Seguidamente le cargamos la posicion inicial: ros2 run proy_techcommit_my_nav2_system initial_pose_pub
-Y para terminar introducimos el siguiente comando en la terminal: ros2 run proy_techcommit_my_nav2_system my_waypoint_follower
 
-### Funcionamiento completo
-#Terminal 1 (Conexión con Turtlebot3)
+
+
+
+## Uso de archivo de navegación por puntos my_waypoint_follower
+Necesitaremos 3 terminales:
+#### Terminal 1 (lanzaremos nuestro mundo): 
+```
+ros2 launch proy_techcommit_mundo turtlebot3_proy_techcommit.launch.py
+```
+
+#### Terminal 2 (lanzaremos el launch de my_waypoints que nos abrirá el RVIZ):
+```
+ros2 launch proy_techcommit_my_nav2_system my_nav2_waypoints_follower.launch.py
+```
+#### Terminal 3 (cargaremos el mapa):
+```
+ros2 service call map_server/load_map nav2_msgs/srv/LoadMap "{map_url: $HOME/turtlebot3_ws/src/proy_techcommit/proy_techcommit_my_nav2_system/config/my_map.yaml}"
+```
+
+#### Terminal 3 (Seguidamente le cargamos la posicion inicial):
+```
+ros2 run proy_techcommit_my_nav2_system initial_pose_pub
+```
+
+#### Terminal 3 (llamamos a waypoint_follower): 
+```
+ros2 run proy_techcommit_my_nav2_system my_waypoint_follower
+```
+
+
+
+
+## Funcionamiento completo (conexión con Pacobot - web - waypoints - real y simulación)
+#### Terminal 1 (Conexión con Turtlebot3)
 ```
 ssh ubuntu@192.168.0.63
 ```
 
-#password:
-```turtlebot```
-```ros2 launch turtlebot3_bringup robot.launch.py```
+##### Terminal 1 - password: 
+```
+turtlebot
+```
+```
+ros2 launch turtlebot3_bringup robot.launch.py
+```
 
-#Terminal 2 (Encender cámara)
-```ssh ubuntu@192.168.0.63```
+#### Terminal 2 (Encender cámara)
+```
+ssh ubuntu@192.168.0.63
+```
 
-```ros2 run image_tools cam2image --ros-args -p burger_mode:=false -p frequency:=10.0```
+```
+ros2 run image_tools cam2image --ros-args -p burger_mode:=false -p frequency:=10.0
+```
 
-#Terminal 3 (Ver cámara por terminal) OPCIONAL
-```ros2 run image_tools showimage --ros-args -p show_image:=true -p reliability:=best_effort ```
+#### Terminal 3 (Ver cámara por terminal) OPCIONAL
+```
+ros2 run image_tools showimage --ros-args -p show_image:=true -p reliability:=best_effort 
+```
 
-#Terminal 4 (Lazar bridge)
+#### Terminal 4 (Lazar bridge)
+```
 ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+```
 
-#Terminal 5 (Lanzar servidor para web)
-```python3 -m http.server 8000```
+#### Terminal 5 (Lanzar servidor para web)
+```
+python3 -m http.server 8000
+```
 
-#Terminal 6 (Video Web Server)
-```ros2 run web_video_server web_video_server```
+#### Terminal 6 (Video Web Server)
+```
+ros2 run web_video_server web_video_server
+```
 
-#Terminal 7 (Servicio para mover el robot)
-```ros2 launch proy_techcommit_service_move movement_server_launch.launch.py ```
+#### Terminal 7 (Servicio para mover el robot)
+```
+ros2 launch proy_techcommit_service_move movement_server_launch.launch.py 
+```
 
-#Terminal 8 (Lanzamiento modelo reconocimiento; Desde proy_techcommit/proy_techcommit_modelo_reconocimiento/proy_techcommit_modelo_reconocimiento)
-```python3 proy_techcommit_modelo_reconocimiento.py ```
+#### Terminal 8 (Lanzamiento modelo reconocimiento; Desde proy_techcommit/proy_techcommit_modelo_reconocimiento/proy_techcommit_modelo_reconocimiento)
+```
+python3 proy_techcommit_modelo_reconocimiento.py 
+```
 
-#### A partir de esta terminal son lanzamientos para simulación
+##### A partir de esta terminal son lanzamientos para simulación
 
-#Terminal 9 (Lanzar mundo simulación)
-```ros2 launch proy_techcommit_mundo turtlebot3_proy_techcommit.launch.py```
+#### Terminal 9 (Lanzar mundo simulación)
+```
+ros2 launch proy_techcommit_mundo turtlebot3_proy_techcommit.launch.py
+```
 
-#Terminal 10 (launch de my_waypoints que nos abrirá el RVIZ)
-```ros2 launch proy_techcommit_my_nav2_system my_nav2_waypoints_follower.launch.py```
+#### Terminal 10 (launch de my_waypoints que nos abrirá el RVIZ)
+```
+ros2 launch proy_techcommit_my_nav2_system my_nav2_waypoints_follower.launch.py
+```
+##### Pasos a seguir antes de continuar con la siguiente terminal:
 1. Cargar el modelo del robot correctamente
 
-#Terminal 11 (Cargar el mapa)
-```ros2 service call map_server/load_map nav2_msgs/srv/LoadMap "{map_url: $HOME/turtlebot3_ws/src/proy_techcommit/proy_techcommit_my_nav2_system/config/my_map.yaml}"```
-Después:
-```ros2 run proy_techcommit_my_nav2_system initial_pose_pub```
-Finalmente:
-```ros2 run proy_techcommit_my_nav2_system my_waypoint_follower```
+#### Terminal 11 (Cargar el mapa)
+```
+ros2 service call map_server/load_map nav2_msgs/srv/LoadMap "{map_url: $HOME/turtlebot3_ws/src/proy_techcommit/proy_techcommit_my_nav2_system/config/my_map.yaml}"
+```
+##### Después:
+```
+ros2 run proy_techcommit_my_nav2_system initial_pose_pub
+```
+##### Finalmente:
+```
+ros2 run proy_techcommit_my_nav2_system my_waypoint_follower
+```
 
 
 
