@@ -21,7 +21,7 @@ def generate_launch_description():
     res.append(launch_robot_move)
 
     # para abrir la pagina del login de pacobot
-    html_file_path = os.path.join(os.path.expanduser('~'), 'turtlebot3_ws', 'ws_ros_web', 'web_pacobot', 'login.html')
+    html_file_path = os.path.join(os.path.expanduser('~'),  'ws_ros_web', 'webs','web_pacobot', 'index.html')
     subprocess.Popen(['xdg-open', html_file_path])
 
     # lo que pondriamos en los terminales para iniciar el server y el rosbridge, ademas de anyadir el inicial pose y cargar el mapa en rviz ademas de lanzar el my_waypoint_follower
