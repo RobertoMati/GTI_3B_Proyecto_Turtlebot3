@@ -2,7 +2,6 @@ import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
 from geometry_msgs.msg import PoseStamped, Vector3
-import time
 
 from nav2_msgs.action import FollowWaypoints
 
@@ -21,7 +20,7 @@ class WaypointFollower(Node):
             10)
 
     def listener_callback(self, msg):
-        # Transformar las coordenadas recibidas en un waypoint
+        # las coordenadas que tenemos se pasan a waypoints
         waypoint = PoseStamped()
         waypoint.header.frame_id = 'map'
         waypoint.pose.position.x = msg.x
@@ -30,7 +29,7 @@ class WaypointFollower(Node):
         waypoint.pose.orientation.w = 1.0
         self.waypoints.append(waypoint)
 
-        # Enviar los waypoints cada vez que reciba uno nuevo
+        # envia el waypoint cada vez que se forma uno
         self.send_waypoints()
 
     def send_waypoints(self):
@@ -67,6 +66,7 @@ class WaypointFollower(Node):
     def get_result_callback(self, future):
         result = future.result().result
         self.get_logger().info('Result: {0}'.format(result.missed_waypoints))
+        self.waypoints.clear()  # borra la lista de los waypoints porque si se anyaden nuevos volvera a los anteriores y luego a los nuevos que ha recibido
 
 
 def main(args=None):
