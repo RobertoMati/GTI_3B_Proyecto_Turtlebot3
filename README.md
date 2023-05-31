@@ -211,10 +211,56 @@ ros2 run proy_techcommit_my_nav2_system initial_pose_pub
 ros2 run proy_techcommit_my_nav2_system my_waypoint_follower
 ```
 
-
-
-
-
+## Launch de lanzadores y de comandos de la navegación del robot por puntos vía web
+#### Pasos a seguir para lanzar el entorno y cargar la web
+0. Nos colocamos dentro de la carpeta turtlebot3_ws y hacemos colcon de la carpeta del proyecto (este paso es opcional Terminal 1)
+```
+colcon build --packages-select proy_techcommit
+```
+1. Lanzamos el launch del paquete simulation_nav_bringup(Terminal 1):
+```
+ros2 launch simulation_nav_bringup simulation_nav_bringup.launch.py
+```
+2. Observar que tiene los siguientes elementos: 
+ - El mapa del entorno virtual en Gazebo
+ - El Rviz con el mapa escaneado cargado y el initial pose ejecutado además del servicio de my_waypoint_follower activado, todo esto se podrá ver en un mismo terminal como en el siguiente ejemplo (Terminal 2 *Se abre sola*): 
+```
+...
+, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), result=0)
+[INFO] [1685532088.673902522] [initial_pose_pub_node]: Hola Publishing Initial Position  
+ X= 0.2 
+ Y=0.0 
+ W = 1.0 
+```
+ - La pantalla login.htm también deberá verse abierta dentro de alguno de los navegadores web.
+ - Un http.server ejecutado en el puerto 8000, en alguna de las 4 terminales que hay abiertas, se tiene que ver algo así (Terminal 3 *Se abre sola*):
+```
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+```
+ - En otro terminal distinto, el rosbridge_server, se tiene que observar algo similar a este ejemplo(Terminal 4 *Se abre sola*):
+ 
+```
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [rosbridge_websocket-1]: process started with pid [2670]
+[INFO] [rosapi_node-2]: process started with pid [2672]
+[rosbridge_websocket-1] [INFO] [1685532078.666935906] [rosbridge_websocket]: Rosbridge WebSocket server started on port 9090
+```
+#### Posibles errores o problemas al lanzar el entorno y carga de la web
+- En Rviz no me carga el modelo del robot: Busca en tu directorio el modelo turtlebot3_burguer/ _pi que contenga .urdf
+- No se abre el archivo .html: Dentro del paquete simulation_nav_bringup en la carpeta launch, encontramos el archivo: simulation_nav_bringup.launch.py, en la línea 24 del código encontramos la ruta donde viene predefinida mi archivo web, en mi caso: 
+```
+html_file_path = os.path.join(os.path.expanduser('~'), 'turtlebot3_ws', 'ws_ros_web', 'web_pacobot', 'login.html')
+```
+Cambia los espacios entre comillas, añadiendo, quitando o modificando su contenido hasta ubicar correctamente su ruta.
+Tras eso, guarda los cambios y de nuevo sitúate en la carpeta turtlebot3_ws y hacemos colcon del paquete en cuestión para actualizar los cambios.
+```
+colcon build --packages-select simulation_nav_bringup
+```
+Una vez haya finalizado, cierras todos los terminales y ventanas que tengas abiertas en relación con el launch y ejecutamos:
+```
+ros2 launch simulation_nav_bringup simulation_nav_bringup.launch.py
+```
+Si surgen nuevos problemas o errores, no dudéis en poneros en contacto con los miembros del equipo
 
 
 
