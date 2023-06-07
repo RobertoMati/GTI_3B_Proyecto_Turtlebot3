@@ -30,6 +30,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'my_waypoint_follower_real = proy_techcommit_my_nav2_system_real.my_waypoint_follower_real:main',
         ],
     },
 )
