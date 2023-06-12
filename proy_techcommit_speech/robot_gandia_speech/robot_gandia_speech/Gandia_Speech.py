@@ -12,10 +12,14 @@ from Audio.Algo import AudioManager
 from Audio.SoundManager import SoundManager
 from Logger.SimpleLogger import SimpleLogger
 from Audio.VoiceOutputManager import VoiceOutputManager
+from geometry_msgs.msg import Vector3
+from gtts import gTTS
+import os
 
 import logging
 import threading
 import time
+import playsound
 
 import flet as ft
 import threading
@@ -31,7 +35,7 @@ class RobotGandiaSpeechNode(Node):
     def __init__(self):
         super().__init__('robot_gandia_speech')
         
-        self.publisher_ = self.create_publisher(String, 'text_response', 10)
+        self.publisher_ = self.create_publisher(String, 'waypoint_follower', 10)
         
         timer_period = 0.5  # seconds
         
@@ -57,11 +61,58 @@ class RobotGandiaSpeechNode(Node):
             while True:
                 if not self.audio_man.output_queue.empty():
                     transcription = self.audio_man.output_queue.get()
-                    self.ai_man.handle_command(transcription)                                                                       
+                    self.ai_man.handle_command(transcription)                                                                     
                 
                 if not self.ai_man.result_outputs.empty():
-                    command = self.ai_man.result_outputs.get()              
+
+                    # msg = String()
+                    # msg.data = 'Hello World'
+
+                    
+                    # pos = self.audio_man.pos
+                    # message = Vector3()
+                    # if pos == 'Ir_a_la_habitacion':
+                    #     texto = "Sígueme, voy a la habitación"
+                    #     tts = gTTS(text=texto, lang='es',slow=False)
+                    #     tts.save("audio.mp3")
+                    #     playsound.playsound("audio.mp3")
+                    #     os.remove("audio.mp3")
+                    #     message.x = -3.32
+                    #     message.y = -3.92
+                    #     message.z = 0.0
+
+                    #     self.publisher_.publish(message)
+                    #     self.get_logger().info('Publishing: "%s"' % message)
+              
+
+
+                    # if pos == 'Ir_a_la_recepcion':
+
+                    #     message.x = 5.0
+                    #     message.y = 3.37
+                    #     message.z = 0.0
+
+                    #     self.publisher_.publish(message)
+                    #     self.get_logger().info('Publishing: "%s"' % message)
+
+                    # if pos == 'Ir_al_bano':
+
+                    #     message.x = -4.05
+                    #     message.y = 3.5
+                    #     message.z = 0.0
+
+                    #     self.publisher_.publish(message)
+                    #     self.get_logger().info('Publishing: "%s"' % message)
+
+                    # else: 
+                    command = self.ai_man.result_outputs.get()
                     self.voice_man.handle_command(command)
+                    #     self.get_logger().info('hablando: "%s"' % "chat gpt")
+                        
+                    self.get_logger().info('hablando: "%s"' % "chat gpt")   
+                 
+                
+
                 else:
  
                     time.sleep(0.01)
@@ -81,10 +132,7 @@ class RobotGandiaSpeechNode(Node):
     
     def timer_callback(self):
         self.cognibot()
-        msg = String()
-        msg.data = 'Hello World'
-        self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)
+
 
 
 

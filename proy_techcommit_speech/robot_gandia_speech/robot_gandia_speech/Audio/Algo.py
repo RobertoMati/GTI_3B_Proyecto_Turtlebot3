@@ -21,11 +21,12 @@ class AudioManager:
     
     samps_stale = True
     current_samps = None
+    pos = None
 
     output_queue = Queue()
 
 
-    def __init__(self, logger, config_file, display_man, sound_man, porcupineApiKey="F2T2PC6i5UViwCb55aqiga6X2ZtrUXU/nx9hYcUz44GVjqB+eE5XnQ==", withAiApiKey="E7SLEAS55B2CK2LAAAJOUYYFLIKLLZYU"):
+    def __init__(self, logger, config_file, display_man, sound_man, porcupineApiKey="F2T2PC6i5UViwCb55aqiga6X2ZtrUXU/nx9hYcUz44GVjqB+eE5XnQ==", withAiApiKey="4SMU3HGLOQNUGJUHZ7VXJ33HLC5KDBGG"):
         
         access_key_porcupine =  porcupineApiKey
         
@@ -132,6 +133,8 @@ class AudioManager:
                         with open('wav/test.wav', 'rb') as f:
                             transcription = self.client.speech(f, {'Content-Type': 'audio/wav'})
                         self.l.log(f"You said: {transcription}", "RUN")
+                        self.pos = transcription['intents'][0]['name']
+                        self.l.log(transcription['intents'][0]['name'], "RUN")
                         print('Yay, got Wit.ai response: ' + str(transcription))
                         print(transcription['text'])
                         self.output_queue.put(transcription['text'])                        
