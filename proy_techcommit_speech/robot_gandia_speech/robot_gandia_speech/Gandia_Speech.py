@@ -24,116 +24,107 @@ import playsound
 import flet as ft
 import threading
 import base64
- 
-   
+
+
 from rclpy.node import Node
 from std_msgs.msg import String
 
-    
+
 class RobotGandiaSpeechNode(Node):
 
     def __init__(self):
         super().__init__('robot_gandia_speech')
-        
-        self.publisher_ = self.create_publisher(String, 'waypoint_follower', 10)
-        
+
+        self.publisher_ = self.create_publisher(
+            Vector3, 'waypoint_follower', 10)
+
         timer_period = 0.5  # seconds
-        
+
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
         self.config_file = "config.ini"
         self.config = configparser.ConfigParser()
         self.config.read(self.config_file)
         self.display_man = None
-    
+
         self.l = SimpleLogger("DEBUG")
-        
+
         if self.l is None:
             print("Exit...")
             exit()
-            
+
         self.init_system()
-        
-    
+
     def cognibot(self):
         transcription = ""
         try:
             while True:
                 if not self.audio_man.output_queue.empty():
                     transcription = self.audio_man.output_queue.get()
-                    self.ai_man.handle_command(transcription)                                                                     
-                
+                    self.ai_man.handle_command(transcription)
+
                 if not self.ai_man.result_outputs.empty():
 
-                    # msg = String()
-                    # msg.data = 'Hello World'
+                     msg = String()
+                     msg.data = 'Hello World'
 
+                     pos = self.audio_man.pos
+                     message = Vector3()
+                     if pos == 'Ir_a_la_habitacion':
+                         
                     
-                    # pos = self.audio_man.pos
-                    # message = Vector3()
-                    # if pos == 'Ir_a_la_habitacion':
-                    #     texto = "Sígueme, voy a la habitación"
-                    #     tts = gTTS(text=texto, lang='es',slow=False)
-                    #     tts.save("audio.mp3")
-                    #     playsound.playsound("audio.mp3")
-                    #     os.remove("audio.mp3")
-                    #     message.x = -3.32
-                    #     message.y = -3.92
-                    #     message.z = 0.0
+                         message.x = -3.32
+                         message.y = -3.92
+                         message.z = 0.0
 
-                    #     self.publisher_.publish(message)
-                    #     self.get_logger().info('Publishing: "%s"' % message)
-              
+                         self.publisher_.publish(message)
+                         self.get_logger().info('Publishing: "%s"' % message)
+                         
 
+                     if pos == 'Ir_a_la_recepcion':
+                         
+                         message.x = 5.0
+                         message.y = 3.37
+                         message.z = 0.0
 
-                    # if pos == 'Ir_a_la_recepcion':
+                         self.publisher_.publish(message)
+                         self.get_logger().info('Publishing: "%s"' % message)
 
-                    #     message.x = 5.0
-                    #     message.y = 3.37
-                    #     message.z = 0.0
+                     if pos == 'Ir_al_bano':
 
-                    #     self.publisher_.publish(message)
-                    #     self.get_logger().info('Publishing: "%s"' % message)
+                         message.x = -4.05
+                         message.y = 3.5
+                         message.z = 0.0
 
-                    # if pos == 'Ir_al_bano':
+                         self.publisher_.publish(message)
+                         self.get_logger().info('Publishing: "%s"' % message)
 
-                    #     message.x = -4.05
-                    #     message.y = 3.5
-                    #     message.z = 0.0
-
-                    #     self.publisher_.publish(message)
-                    #     self.get_logger().info('Publishing: "%s"' % message)
-
-                    # else: 
-                    command = self.ai_man.result_outputs.get()
-                    self.voice_man.handle_command(command)
-                    #     self.get_logger().info('hablando: "%s"' % "chat gpt")
-                        
-                    self.get_logger().info('hablando: "%s"' % "chat gpt")   
-                 
                 
+                     command = self.ai_man.result_outputs.get()
+                     self.voice_man.handle_command(command)
+                     self.get_logger().info('hablando: "%s"' % "chat gpt")
 
                 else:
- 
+
                     time.sleep(0.01)
-                
+
         except KeyboardInterrupt:
             # AudioManager is the only module with a separate loop that needs
             # to stop in order to have a clean exit
             self.audio_man.stop()
-            
+
     def init_system(self):
         self.sound_man = SoundManager(self.l, self.config_file)
         self.display_man = None
-        self.audio_man = AudioManager(self.l, self.config_file, self.display_man, self.sound_man)
-        self.ai_man = AIManager(self.l, self.config_file, self.display_man, self.sound_man)
-        self.voice_man = VoiceOutputManager(self.l, self.config_file, self.display_man)
-       
-    
+        self.audio_man = AudioManager(
+            self.l, self.config_file, self.display_man, self.sound_man)
+        self.ai_man = AIManager(self.l, self.config_file,
+                                self.display_man, self.sound_man)
+        self.voice_man = VoiceOutputManager(
+            self.l, self.config_file, self.display_man)
+
     def timer_callback(self):
         self.cognibot()
-
-
 
 
 def main(args=None):
@@ -152,5 +143,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-    
-        

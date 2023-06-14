@@ -39,7 +39,11 @@ class AIManager:
         async_thread.start()
 
     def handle_command_async(self, text):
+        contexto = "Eres el robot de una residencia de ancianos. Debes ser capaz de responder a las personas mayores que viven en la residencia afirmativamente cuando te pidan que les lleves a la habitación, la recepción o al baño. En caso de que sea una ubicación distinta, responde que no sabes donde está. Debes ser muy amable a la hora de responder a cualquier petición."
         prompt = self.prompt_text
+
+        # Combinar el contexto y el texto para formar la entrada
+        input_text = contexto + "\n" + text
 
         # Could add separate handlers for different prompts if desired...
         if self.prompt_name == "prompt1":
@@ -54,7 +58,7 @@ class AIManager:
             if self.flagOpenAI:
                 response = openai.Completion.create(
                     engine="text-davinci-003",
-                    prompt=text,
+                    prompt=input_text,
                     temperature=0.5,
                     max_tokens=500,
                     top_p=1.0,

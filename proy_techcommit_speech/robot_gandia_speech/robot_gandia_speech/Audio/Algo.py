@@ -1,4 +1,4 @@
-# Author:  AlexFWulff 
+# Author:  AlexFWulff
 # https://github.com/AlexFWulff/SnarkyHomeAutomation
 
 import numpy as np
@@ -17,39 +17,39 @@ from scipy.io.wavfile import write
 class AudioManager:
     l = None
     stop_rec = False
-    #display_man = None
-    
+    # display_man = None
+
     samps_stale = True
     current_samps = None
     pos = None
 
     output_queue = Queue()
 
-
     def __init__(self, logger, config_file, display_man, sound_man, porcupineApiKey="F2T2PC6i5UViwCb55aqiga6X2ZtrUXU/nx9hYcUz44GVjqB+eE5XnQ==", withAiApiKey="4SMU3HGLOQNUGJUHZ7VXJ33HLC5KDBGG"):
-        
-        access_key_porcupine =  porcupineApiKey
-        
+
+        access_key_porcupine = porcupineApiKey
+
         self.NLP_TYPE = "Wit"
         self.client = Wit(withAiApiKey)
-        
+
         # Porcupine handles the wakewords
-        self.porc = pvporcupine.create(access_key=access_key_porcupine, keywords=["americano"])
-        
+        self.porc = pvporcupine.create(
+            access_key=access_key_porcupine, keywords=["americano"])
+
         self.fs = self.porc.sample_rate
         self.frame_len = self.porc.frame_length
         self.l = logger
         self.config = configparser.ConfigParser()
         self.config.read(config_file)
         self.parse_config()
-        #self.display_man = display_man
+        # self.display_man = display_man
         self.sound_man = sound_man
-        
+
         # Continuously collect samples in a separate thread, and make sure
         # they're always fresh before delivering them
-        sample_thread = Thread(target = self.sample_loop)
+        sample_thread = Thread(target=self.sample_loop)
         sample_thread.start()
-        
+
         # Let things settle then baseline audio level for a bit
         baseline_samps = int(self.initial_thresh_time*self.fs)
         time.sleep(0.5)
@@ -58,21 +58,22 @@ class AudioManager:
         self.l.log(f"Base RMS Level: {self.base_level}", "DEBUG")
 
         # Continuously wait for wakeword in this thread
-        run_thread = Thread(target = self.run)
+        run_thread = Thread(target=self.run)
         run_thread.start()
-        
+
     def sample_loop(self):
         pa = pyaudio.PyAudio()
-        
+
         audio_stream = pa.open(
             rate=self.fs,
             channels=1,
             format=pyaudio.paInt16,
             input=True,
             frames_per_buffer=self.frame_len)
-        
+
         while not self.stop_rec:
-            self.current_samps = audio_stream.read(self.porc.frame_length, exception_on_overflow=False)
+            self.current_samps = audio_stream.read(
+                self.porc.frame_length, exception_on_overflow=False)
             self.samps_stale = False
 
         audio_stream.stop_stream()
@@ -85,7 +86,7 @@ class AudioManager:
         wait_speech_nsamp = int(self.fs*self.wait_speech_buffer_time)
         transcription_nsamp = int(self.fs*self.transcription_buffer_time)
         current_nsamp = wait_speech_nsamp
-        
+
         while not self.stop_rec:
             samps = self.get_samps_single()
             pcm = struct.unpack_from("h" * self.porc.frame_length, samps)
@@ -93,10 +94,10 @@ class AudioManager:
 
             # If the wakeword was detected...
             if keyword_index >= 0:
-                #self.display_man.wakeword_detected()
+                # self.display_man.wakeword_detected()
                 self.l.log("Wakeword Detected. Waiting for speech.", "RUN")
                 self.sound_man.play_blocking("wakeword")
-                
+
                 # Continuously read samples until RMS value goes to baseline
                 to_transcribe = []
                 still_quiet = True
@@ -108,38 +109,45 @@ class AudioManager:
                     elif self.rms(samps) < self.dev_thresh*self.base_level:
                         current_nsamp = wait_speech_nsamp
                         break
-    
+
                     if still_quiet:
                         current_nsamp = transcription_nsamp
-                        #self.display_man.talking_started()
+                        # self.display_man.talking_started()
                         self.l.log("You started talking!", "DEBUG")
                         still_quiet = False
-                    
+
                     to_transcribe.append(samps)
-    
+
                 to_transcribe = np.hstack(to_transcribe)
 
-                #self.display_man.talking_finished()
+                # self.display_man.talking_finished()
                 self.l.log("Done talking. Transcribing...", "DEBUG")
                 audio = sr.AudioData(to_transcribe, self.fs, 2)
                 print(audio)
-                
+
                 write('wav/test.wav', self.fs, to_transcribe)
-                
+
                 # Select the tools to transcribe audio to text
                 if "Wit" in self.NLP_TYPE:
-                    try:                    
-                        transcription = None                    
+                    try:
+                        transcription = None
                         with open('wav/test.wav', 'rb') as f:
-                            transcription = self.client.speech(f, {'Content-Type': 'audio/wav'})
-                        self.l.log(f"You said: {transcription}", "RUN")
-                        self.pos = transcription['intents'][0]['name']
-                        self.l.log(transcription['intents'][0]['name'], "RUN")
-                        print('Yay, got Wit.ai response: ' + str(transcription))
-                        print(transcription['text'])
-                        self.output_queue.put(transcription['text'])                        
-                        self.sound_man.play_blocking("transcription success")
+                            transcription = self.client.speech(
+                                f, {'Content-Type': 'audio/wav'})
+
+                            if transcription.get('intents') and len(transcription['intents']) > 0:
+                                self.l.log(f"You said: {transcription}", "RUN")
+                                self.pos = transcription['intents'][0]['name']
+                                self.l.log(transcription['intents'][0]['name'], "RUN")
+                                print('Yay, got Wit.ai response: ' + str(transcription))
+                                print(transcription['text'])
+                                self.output_queue.put(transcription['text'])
+                                self.sound_man.play_blocking("transcription success")
+                            else:
+                                self.l.log("Pasa por ahi", "DEBUG")
+                                pass   
                     except sr.UnknownValueError:
+
                         self.l.log("No audio found in segment", "DEBUG")
                         #self.display_man.transcription_finished("")
                         self.sound_man.play_blocking("transcription failed")     
