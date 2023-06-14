@@ -36,7 +36,7 @@ class RobotGandiaSpeechNode(Node):
         super().__init__('robot_gandia_speech')
 
         self.publisher_ = self.create_publisher(
-            Vector3, 'waypoint_follower', 10)
+            Vector3, 'follow_waypoints', 10)
 
         timer_period = 0.5  # seconds
 
