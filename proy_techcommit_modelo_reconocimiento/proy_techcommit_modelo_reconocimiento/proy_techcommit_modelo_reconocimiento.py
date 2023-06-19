@@ -19,7 +19,7 @@ class RobotGandiaDeepLearningNode(Node):
     def __init__(self):
         super().__init__('proy_techcommit_modelo_reconocimento')
         
-        self.edgeimpulse_model = '/home/robertomati/turtlebot3_ws/src/proy_techcommit/proy_techcommit_modelo_reconocimiento/proy_techcommit_modelo_reconocimiento/edgeimpulse_model/FOMO_Model.eim'
+        self.edgeimpulse_model = '/home/alumno/turtlebot3_ws/src/proy_techcommit/proy_techcommit_modelo_reconocimiento/proy_techcommit_modelo_reconocimiento/edgeimpulse_model/FOMO_Model.eim'
 
         # Subscriber
         
